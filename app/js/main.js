@@ -1,33 +1,18 @@
 import $ from 'jquery';
-import MediaStreamRecorder from 'msr';
-
-let mediaRecorder = undefined;
-
-function onMediaSuccess(stream) {
-  console.log('success');
-  mediaRecorder = new MediaStreamRecorder(stream);
-  mediaRecorder.mimeType = 'audio/wav'; // check this line for audio/wav
-  mediaRecorder.ondataavailable = function () {
-    console.log('data available');
-  };
-  mediaRecorder.start(3000);
-}
-
-function onMediaError(e) {
-  console.log('media error', e);
-}
-
+import AudioRecorder from './AudioRecorder';
 
 $(document).ready(() => {
   console.log('Init');
 
+  const recorder = new AudioRecorder();
+
   $('#recording-start').click(() => {
-    navigator.getUserMedia({ audio: true }, onMediaSuccess, onMediaError);
+    recorder.start();
   });
   $('#recording-stop').click(() => {
-    mediaRecorder.stop();
+    recorder.stop();
   });
   $('#recording-save').click(() => {
-    mediaRecorder.save();
+    recorder.save();
   });
 });
