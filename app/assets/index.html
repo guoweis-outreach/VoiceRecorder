@@ -3,19 +3,50 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Voice Recorder</title>
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor.css">
   <link rel="stylesheet" href="/app.css">
   <script src="/vendor.js"></script>
   <script src="/app.js"></script>
   <script>require('js/main');</script>
 </head>
-<body>
-<h1>Hello World</h1>
-<button id="recording-start">Start recording</button>
-<button id="recording-save">Save recording</button>
-<audio controls>
-  <source/>
-  Sorry, playing audio not supported in your browser.
-</audio>
-<p id="recording-running"></p>
-<p id="recording-time"></p>
+<body class="grey lighten-3">
+<div class="background-header light-blue"></div>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m10 offset-m1 l8 offset-l2">
+      <div class="card">
+        <div class="card-content">
+          <div class="section">
+            <h1>Simple Voice Recorder</h1>
+          </div>
+          <div class="section center-align">
+            <button id="recording-start" class="btn-large waves-effect waves-light deep-orange">
+              <i class="material-icons left">mic</i>
+              <span>Start recording</span>
+            </button>
+            <button id="recording-save" class="btn-large waves-effect waves-light deep-orange">
+              <i class="material-icons left">file_download</i>
+              Save recording
+            </button>
+          </div>
+          <div class="section">
+            <div class="recording-info">
+              <p id="recording-time" class="red-text"></p>
+            </div>
+            <audio controls>
+              <source/>
+              Sorry, playing audio not supported in your browser.
+            </audio>
+          </div>
+          <div class="section footer">
+            <a href="mailto:philipp.eichorn@bitdroid.de">Contact</a>
+            <a href="https://www.bitdroid.de/legal-notice.html#impressum">Imprint</a>
+            <a href="https://www.bitdroid.de/legal-notice.html#datenschutz">Data protection</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </body>

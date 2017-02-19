@@ -5,10 +5,13 @@ import AudioRecorder from './AudioRecorder';
 $(document).ready(() => {
   console.log('Init');
 
+  const startElement = $('#recording-start');
+  const saveElement = $('#recording-save');
+  const infoElement = $('.recording-info');
+  const audioElement = $('audio');
+
   const audioRecorder = new AudioRecorder(() => {
     // update recording time
-    $('#recording-running').text(`Is recording: ${audioRecorder.isRecording}`);
-
     const recordedSeconds = audioRecorder.recordingTime / 1000;
     let hours = Math.floor(recordedSeconds / 3600);
     let minutes = Math.floor((recordedSeconds - (hours * 3600)) / 60);
@@ -25,21 +28,38 @@ $(document).ready(() => {
     }
     const time = hours > 0 ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
     $('#recording-time').text(time);
+    if (audioRecorder.isRecording) infoElement.show();
+    else infoElement.hide();
 
     // update recording preview
     if (audioRecorder.recordedBlob) {
       const url = (window.URL || window.webkitURL).createObjectURL(audioRecorder.recordedBlob);
-      const audio = $('audio');
-      audio[0].pause();
-      audio[0].load();
+      audioElement[0].pause();
+      audioElement[0].load();
       $('source').attr('src', url).detach().appendTo('audio');
+      audioElement.show();
+    } else {
+      audioElement.hide();
+    }
+
+    // update save
+    if (audioRecorder.recordedBlob) saveElement.show();
+    else saveElement.hide();
+
+    // update start / stop
+    if (audioRecorder.isRecording) {
+      startElement.find('span').text('Stop recording');
+      startElement.find('i').text('stop');
+    } else {
+      startElement.find('span').text('Start recording');
+      startElement.find('i').text('mic');
     }
   });
 
   audioRecorder.initAudio();
 
   // setup start / stop
-  $('#recording-start').click(() => {
+  startElement.click(() => {
     if (!audioRecorder.isRecording) {
       audioRecorder.start();
       return;
@@ -48,7 +68,7 @@ $(document).ready(() => {
   });
 
   // setup save
-  $('#recording-save').click(() => {
+  saveElement.click(() => {
     if (!audioRecorder.recordedBlob) return;
     const now = new Date();
     let month = now.getMonth() + 1;
@@ -61,4 +81,8 @@ $(document).ready(() => {
       `recording-${now.getFullYear()}-${month}-${day}-${now.getSeconds() + (60 * now.getMinutes() + (60 * now.getHours()))}`
     );
   });
+
+  saveElement.hide();
+  audioElement.hide();
+  infoElement.hide();
 });

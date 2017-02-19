@@ -1,0 +1,61 @@
+$break-m: 601px;
+$break-l: 993px;
+
+html, body {
+  width: 100%;
+  min-height: 100%;
+}
+
+.background-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+}
+
+
+h1 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-weight: 300;
+  font-size: 32px;
+  @media screen and (min-width: $break-m) {
+    font-size: 40px;
+  }
+  @media screen and (min-width: $break-l) {
+    font-size: 48px;
+  }
+}
+
+.container {
+  margin-top: 100px;
+}
+
+button {
+  margin: 5px;
+}
+
+audio {
+  margin: 0 auto;
+  display: block;
+}
+
+.recording-info {
+  text-align: center;
+  #recording-time {
+    font-weight: bold;
+  }
+}
+
+.footer {
+  text-align: center;
+  a {
+    text-decoration: none;
+    color: #757575;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 12px;
+  }
+}
