@@ -78,7 +78,7 @@ $(document).ready(() => {
 
     FileSaver.saveAs(
       audioRecorder.recordedBlob,
-      `recording-${now.getFullYear()}-${month}-${day}-${now.getSeconds() + (60 * now.getMinutes() + (60 * now.getHours()))}`
+      `recording-${now.getFullYear()}-${month}-${day}-${now.getSeconds() + (60 * now.getMinutes() + (60 * now.getHours()))}.wav`
     );
   });
 
