@@ -6,9 +6,15 @@
   <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="/vendor.css">
   <link rel="stylesheet" href="/app.css">
+  <script src="/swfobject.js"></script>
   <script src="/vendor.js"></script>
   <script src="/app.js"></script>
   <script>require('js/main');</script>
+  <style>
+    #recording-save, #recording-info {
+      display: none;
+    }
+  </style>
 </head>
 <body class="grey lighten-3">
 <div class="background-header light-blue"></div>
@@ -38,6 +44,11 @@
               <source/>
               Sorry, playing audio not supported in your browser.
             </audio>
+          </div>
+          <div class="section">
+            <div id="flashcontent">
+              Please enable JavaScript and Flash to record audio.
+            </div>
           </div>
           <div class="section footer">
             <a href="mailto:philipp.eichorn@bitdroid.de">Contact</a>

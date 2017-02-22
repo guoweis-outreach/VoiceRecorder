@@ -32,7 +32,7 @@ $(document).ready(() => {
     else infoElement.hide();
 
     // update recording preview
-    if (audioRecorder.recordedBlob) {
+    if (audioRecorder.recordedBlob && !audioRecorder.isRecording) {
       const url = (window.URL || window.webkitURL).createObjectURL(audioRecorder.recordedBlob);
       audioElement[0].pause();
       audioElement[0].load();
@@ -43,7 +43,7 @@ $(document).ready(() => {
     }
 
     // update save
-    if (audioRecorder.recordedBlob) saveElement.show();
+    if (audioRecorder.recordedBlob && !audioRecorder.isRecording) saveElement.show();
     else saveElement.hide();
 
     // update start / stop
