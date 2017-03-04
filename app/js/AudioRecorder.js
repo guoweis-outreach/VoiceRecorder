@@ -17,16 +17,18 @@ class AudioRecorder {
 
   start() {
     // start recording
-    this._recorder.start();
-    this._isRecording = true;
-    this._recordingStartTime = new Date().getTime();
-    this._recordingEndTime = undefined;
+    this._recorder.start(() => {
+      this._recordingStartTime = new Date().getTime();
+      this._recordingEndTime = undefined;
 
-    // trigger updates
-    this._updateCallback();
-    this._timerId = setInterval(() => {
+      // trigger updates
       this._updateCallback();
-    }, 1000);
+      this._timerId = setInterval(() => {
+        this._updateCallback();
+      }, 1000);
+    });
+    this._isRecording = true;
+    this._updateCallback();
   }
 
   stop() {
@@ -62,6 +64,7 @@ class AudioRecorder {
       navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
 
     const blobCallback = () => this._updateCallback();
+
     if (navigator.getUserMedia) {
       this._recorder = new Html5Recorder(blobCallback);
       return true;

@@ -33,10 +33,11 @@ class Html5Recorder {
 
   }
 
-  start() {
+  start(recordingStartedCallback) {
     this._recorder.clear();
     this._recordedBlob = undefined;
     this._recorder.record();
+    recordingStartedCallback();
   }
 
   stop() {

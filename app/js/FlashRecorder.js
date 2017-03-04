@@ -20,16 +20,13 @@ class FlashRecorder {
     const attributes = { id: RECORDER_APP_ID, name: RECORDER_APP_ID };
     swfobject.embedSWF('/flashRecorder.swf', 'flashcontent', appWidth, appHeight, '11.0.0', '', flashvars, params, attributes);
 
+    const outerThis = this;
     window.fwr_event_handler = function fwr_event_handler() {
       let name;
       console.log(arguments[0]);
       switch (arguments[0]) {
         case 'ready':
           elemStartRecording.prop('disabled', false);
-          $('#recorderApp').css({
-            height: 0,
-          });
-
           FWRecorder.uploadFormId = "#uploadForm";
           FWRecorder.uploadFieldName = "upload_file[filename]";
           FWRecorder.connect(RECORDER_APP_ID, 0);
@@ -44,6 +41,17 @@ class FlashRecorder {
 
         case 'permission_panel_closed':
           FWRecorder.defaultSize();
+          $('#recorderApp').css({
+            height: 0,
+          });
+          break;
+
+        case 'microphone_connected':
+          if (outerThis._startRecording) {
+            FWRecorder.record(KEY_RECORDING, 'audio.wav');
+            outerThis._recordingStartedCallback();
+          }
+          outerThis._audioPermissionGranted = true;
           break;
 
         case 'recording':
@@ -87,8 +95,18 @@ class FlashRecorder {
     };
   }
 
-  start() {
-    FWRecorder.record(KEY_RECORDING, 'audio.wav');
+  start(recordingStartedCallback) {
+    this._recordingStartedCallback = recordingStartedCallback;
+    this._startRecording = true;
+    if (this._audioPermissionGranted) {
+      FWRecorder.record(KEY_RECORDING, 'audio.wav');
+      this._recordingStartedCallback();
+    } else {
+      FWRecorder.showPermissionWindow({ permanent: true });
+      $('#recorderApp').css({
+        height: '150px',
+      });
+    }
   }
 
   stop() {
@@ -97,6 +115,9 @@ class FlashRecorder {
   }
 
   get recordedBlob() {
+    if (!this._startRecording || !this._audioPermissionGranted) {
+      return undefined;
+    }
     return FWRecorder.getBlob(KEY_RECORDING);
   }
 }
