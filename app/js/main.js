@@ -56,7 +56,11 @@ $(document).ready(() => {
     }
   });
 
-  audioRecorder.initAudio();
+  let recordingSupported = audioRecorder.initAudio();
+  if (!recordingSupported) {
+    $('.error').show();
+    $('.controls').hide();
+  }
 
   // setup start / stop
   startElement.click(() => {

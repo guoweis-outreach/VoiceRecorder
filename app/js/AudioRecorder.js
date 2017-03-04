@@ -62,8 +62,19 @@ class AudioRecorder {
       navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
 
     const blobCallback = () => this._updateCallback();
-    if (navigator.getUserMedia) this._recorder = new Html5Recorder(blobCallback);
-    else this._recorder = new FlashRecorder(blobCallback);
+    if (navigator.getUserMedia) {
+      this._recorder = new Html5Recorder(blobCallback);
+      return true;
+    }
+    else {
+      if (!swfobject.hasFlashPlayerVersion("11")) {
+        console.log(swfobject.getFlashPlayerVersion());
+        // no flash installed or outdated
+        return false;
+      }
+      this._recorder = new FlashRecorder(blobCallback);
+      return true;
+    }
   }
 
 }
