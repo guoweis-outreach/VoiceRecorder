@@ -43,6 +43,8 @@ class FlashRecorder {
           FWRecorder.defaultSize();
           $('#recorderApp').css({
             height: 0,
+            position: 'absolute',
+            top: '50px',
           });
           break;
 
