@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Voice Recorder</title>
+  <link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="/vendor.css">
+  <link rel="stylesheet" href="/app.css">
+  <script src="/swfobject.js"></script>
+  <script src="/vendor.js"></script>
+  <script src="/app.js"></script>
+  <script>require('js/main');</script>
+  <style>
+    #recording-save {
+      display: none;
+    }
+  </style>
+</head>
+<body class="simple">
+<div class="section">
+  <div class="controls">
+    <button id="recording-start" class="btn-floating">
+      <i class="material-icons">mic</i>
+    </button>
+    <button id="recording-save" class="btn-floating">
+      <i class="material-icons">file_download</i>
+    </button>
+    <div class="recording-info">
+      <p id="recording-time" class="red-text"></p>
+    </div>
+    <div class="container-audio">
+      <audio controls>
+        <source/>
+        Sorry, playing audio not supported in your browser.
+      </audio>
+    </div>
+  </div>
+  <div class="error">
+    <p>Audio recording not supported. Please use a different browser or install Flash.</p>
+  </div>
+</div>
+<div class="section">
+  <div id="flashcontent">
+    Please enable JavaScript and Flash to record audio.
+  </div>
+</div>
+</div>
+</body>

@@ -27,10 +27,7 @@ class FlashRecorder {
         case 'ready':
           elemStartRecording.prop('disabled', false);
           $('#recorderApp').css({
-            position: 'absolute',
-            'z-index': -100,
-            top: 0,
-            left: 0,
+            height: 0,
           });
 
           FWRecorder.uploadFormId = "#uploadForm";

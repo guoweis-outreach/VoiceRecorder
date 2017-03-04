@@ -65,8 +65,7 @@ class AudioRecorder {
     if (navigator.getUserMedia) {
       this._recorder = new Html5Recorder(blobCallback);
       return true;
-    }
-    else {
+    } else {
       if (!swfobject.hasFlashPlayerVersion("11")) {
         console.log(swfobject.getFlashPlayerVersion());
         // no flash installed or outdated
