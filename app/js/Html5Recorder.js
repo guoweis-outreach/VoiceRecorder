@@ -34,6 +34,7 @@ class Html5Recorder {
   }
 
   start(recordingStartedCallback) {
+    this._audioContext.resume();
     this._recorder.clear();
     this._recordedBlob = undefined;
     this._recorder.record();
@@ -46,6 +47,7 @@ class Html5Recorder {
       this._recordedBlob = blob;
       this._recordedBlobSavedCallback();
     });
+    this._audioContext.suspend();
   }
 
   get recordedBlob() {
@@ -88,8 +90,6 @@ class Html5Recorder {
     this._audioInput = this._realAudioInput;
     this._audioInput.connect(this._inputPoint);
 
-    // audioInput = convertToMono( input );
-
     const analyserNode = this._audioContext.createAnalyser();
     analyserNode.fftSize = 2048;
     this._inputPoint.connect(analyserNode);
@@ -100,7 +100,8 @@ class Html5Recorder {
     zeroGain.gain.value = 0.0;
     this._inputPoint.connect(zeroGain);
     zeroGain.connect(this._audioContext.destination);
-    // updateAnalysers();
+
+    this._audioContext.suspend();
   }
 
 }
